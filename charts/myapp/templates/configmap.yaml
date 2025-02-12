@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "myapp.fullname" . }}
+  labels:
+    {{- include "myapp.labels" . | nindent 4 }}
+data:
+  API_BASE_URL: {{ default "/" .Values.config.API_BASE_URL | quote }}
+  LOG_LEVEL: {{ default "error" .Values.config.LOG_LEVEL | quote }}
+  MAX_CONNECTIONS: {{ default "30" .Values.config.MAX_CONNECTIONS | quote }}
