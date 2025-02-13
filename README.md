@@ -84,7 +84,7 @@ $ curl http://127.0.0.1:8080/config
 ```
 
 ## The Application
-Under `apps/myapp` folder, a `Dockerfile` can be found, which uses `python:3.13` base Docker image. Required Python packages are freezed to a specific version in the `requirements.txt` file.
+Under `apps/myapp` folder, a `Dockerfile` can be found, which uses `python:3.13` base Docker image. Required Python packages are frozen to a specific version in the `requirements.txt` file.
 
 The image was built and pushed into the public `Dockerhub` registry under `rmin/mt-myapp` image name and `1.0.0` tag.
 
@@ -143,13 +143,15 @@ REVISION: 1
 
 (4) Ideally `liveness` and `readiness` Probes should use different endpoints (and possible `startup` Probe). `readiness` Probes determine when a container is ready to start accepting traffic (DB, Cache, etc. are ready too).
 
+(5) For production deployments, `securityContext` should be configured to provide only read-only access to the local storage, and run the container as non-root user.
+
 ## Terraform Setup
 Directory tree for the `terraform/` setup:
 ```
 envs/
   local/
-    versions.tf  # required terraform providers and their freezed versions
-    provider.tf  # help provider and it's default configs
+    versions.tf  # required terraform providers and their frozen versions
+    provider.tf  # helm provider and it's default configs for the env
     variables.tf  # variables that can be set via CI/CD or cli
     myapp_1.tf  # myapp module instance for this terraform env
     
